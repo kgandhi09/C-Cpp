@@ -1,7 +1,7 @@
 /*
  ============================================================================
- Name        : Hello.c
- Author      : 
+ Name        : hello_world.c
+ Author      : Kushal Gandhi
  Version     :
  Copyright   : Your copyright notice
  Description : Hello World in C, Ansi-style
