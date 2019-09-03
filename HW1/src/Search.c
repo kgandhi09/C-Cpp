@@ -7,5 +7,5 @@
 
 #include "Search.h"
 
-int x,y;
-
+// int nRooms = getNumberOfRooms();
+//static int aRoom = getNewRoom();

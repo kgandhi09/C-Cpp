@@ -5,6 +5,9 @@
  *      Author: kushal
  */
 #include "production.h"
-void main(){
-	printf("Hello World");
+
+
+int production(int argc,char** argv){
+	int result=0;
+	return result;
 }

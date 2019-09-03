@@ -11,3 +11,4 @@
 
 
 #endif /* SRC_TESTS_H_ */
+ int test();

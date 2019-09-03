@@ -6,3 +6,8 @@
  */
 
 #include "tests.h"
+int test(){
+	int result=0;
+
+	return result;
+}
