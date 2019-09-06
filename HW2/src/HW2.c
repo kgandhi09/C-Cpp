@@ -18,10 +18,10 @@
 
 int main(int argc, char* argv[]) {
 
-	puts("!!!Let's do the spreadsheet example!!!"); /* prints !!!Hello World!!! */
+	puts("!!!Let's do the spreadsheet example!!!");  //prints !!!Hello World!!!
 	if(tests())
 	{
-		printf("Tests done!");
+		puts("Tests done!");
 		production(argc, argv);
 		int** arr = make2Darray(2,2);
 		printArray(2,2,arr);
