@@ -1,18 +1,5 @@
 /*
  ============================================================================
- Name        : Spreadsheet.c
- Author      : 
- Version     :
- Copyright   : Your copyright notice
- Description : Hello World in C, Ansi-style
- ============================================================================
- */
-
-#include <stdio.h>
-#include <stdlib.h>
-
-/*
- ============================================================================
  Name        : HW1.c
  Author      :
  Version     :
@@ -30,16 +17,16 @@
 
 int main(int argc, char* argv[]) {
 
-	int array[2][2] = {{1,2}, {2,1}};
+	int array[2][2] = {{3,4},{2,1}};
 	for(int j=0; j<2; j++){
-		printf("\n");
+
 		for(int k = 0; k<2; k++){
 			printf("%d", array[j][k]);
 
 		}
-
+		printf("\n");
 	}
-	printf("\n");
+
 	//int *ptr = array;
 
 

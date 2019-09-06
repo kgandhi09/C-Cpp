@@ -10,10 +10,9 @@
 #include "Sheet.h"
 
 
-bool tests()
+int tests()
 {
-	bool answer = true;
-
+	int answer = 1;
 	return answer;
 }
 
