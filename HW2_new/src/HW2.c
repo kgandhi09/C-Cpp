@@ -10,8 +10,10 @@
 #include "production.h"
 
 int main(int argc, char** argv){
-
-	printf("Let's do hw 2 !");
-	production(argc,argv);
+	//int x = rand();
+	srand(0);
+	printf("Let's do hw 2 !\n");
+	production(argc,argv);	
+	
 	return 0;
 }
