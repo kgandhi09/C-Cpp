@@ -40,7 +40,7 @@ bool tests(void)
 
 bool testMoveMarker(){
 	int** testArr = make2Darray(3,3);
-	//placeMarker(1, 1, 1, testArr);
+	placeMarker(1, 1, 1, testArr);
 	moveMarker(testArr, 3,3);
 	//printArray(3,3,testArr);
 	return true;
