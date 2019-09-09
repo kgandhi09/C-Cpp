@@ -11,7 +11,7 @@
 
 int main(int argc, char** argv){
 	//int x = rand();
-	srand(0);
+	srand(2);
 	printf("Let's do hw 2 !\n");
 	production(argc,argv);	
 	
