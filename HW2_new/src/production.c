@@ -64,6 +64,7 @@ void placeMarker(int marker, int row, int col, int** theArray){
 	theArray[row][col] = marker;	
 	if (markerPosArr!=NULL){ // if the array does have a marker
 		if(markerPosArr[0]!=row || markerPosArr[1]!=col){
+			//printf("set to 0\n");
 			theArray[markerPosArr[0]][markerPosArr[1]] = 0;
 		}
 
