@@ -17,7 +17,8 @@ int main(int argc, char** argv){
 		printf("Tests Running!\n");
 		srand(2);
 		printf("Let's do hw 2 !\n");
-		//production(argc,argv);
+		printf("\n");
+		production(argc,argv);
 	}
 	else{
 		printf("Tests didn't pass!");	

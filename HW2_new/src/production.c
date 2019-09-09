@@ -14,6 +14,7 @@
 int nRows=0;
 int nCols=0;
 
+
 bool production(int argc, char* argv[])
 {
 	bool answer = true;
@@ -31,9 +32,10 @@ bool production(int argc, char* argv[])
 }
 
 void moveMarker(int** arr,int rows, int cols){
-	
+	int count = 1;
 	for(int i = 0; i<10; i++){
-		
+		printf("No of move - %d", count);
+		count++;
 		int nr=randInt(rows);
 		int nc=randInt(cols);
 		placeMarker(1, nr, nc, arr);
@@ -60,7 +62,6 @@ int** make2Darray(int rows, int cols){
 void placeMarker(int marker, int row, int col, int** theArray){
 	
 	int* markerPosArr = getMarkerPos(theArray, nRows, nCols);
-	
 	theArray[row][col] = marker;	
 	if (markerPosArr!=NULL){ // if the array does have a marker
 		if(markerPosArr[0]!=row || markerPosArr[1]!=col){
@@ -105,9 +106,9 @@ void printArray(int rows, int cols, int** theArray){
 		fflush(stdout);
 		
 		for(int j = 0; j<cols; j++){
-			printf("%d",theArray[i][j]);
+			printf("%2d",theArray[i][j]);
 			fflush(stdout);
-			printf("%c", '|');
+			printf("%2c", '|');
 			fflush(stdout);
 		}
 		printf("\n");

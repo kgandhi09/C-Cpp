@@ -30,10 +30,7 @@ bool tests(void)
 	bool ok3 = testPlaceMarker();
 	if(ok3)puts("places the marker and prints it!\n");
 	
-	bool ok4 = testMoveMarker();
-	if(ok4)puts("moves the position of marker from (1,1) to random position and prints it!\n");
-	
-	results = ok1 && ok2 && ok3 && ok4;
+	results = ok1 && ok2 && ok3; 
 	printf("tests returning %d.\n",results);
 	return results;
 }
