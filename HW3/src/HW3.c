@@ -7,19 +7,20 @@
 
 #include <stdio.h>
 #include <stdlib.h>
-#include "production.h"
 #include "tests.h"
 #include <stdbool.h>
+
+#include "House.h"
 #include "Kushal.h"
 
 int main(int argc, char** argv){
-	int x = rand();
 	if(tests()){
 		//printf("Tests Running!\n");
 		//srand(2);
-		printf("Let's do hw 2 !\n");
+		printf("Let's do hw 3 !\n");
 		printf("\n");
 		production(argc,argv);
+		
 	}
 	else{
 		printf("Tests didn't pass!");	
