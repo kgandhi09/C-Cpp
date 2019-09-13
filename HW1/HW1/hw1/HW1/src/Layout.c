@@ -1,15 +1,14 @@
 /*
  * Layout.c
  *
- *  Created on: Sep 11, 2019
+ *  Created on: Aug 30, 2019
  *      Author: kushal
  */
-
 #include "Layout.h"
-#include "production.h"
+
 
 int countRooms(){
-	int nRooms=nRows;
+	int nRooms=0;
 	return nRooms;
 }
 

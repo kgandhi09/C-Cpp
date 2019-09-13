@@ -6,3 +6,8 @@
  */
 
 #include "Search.h"
+
+int getNumRooms(){
+	int nRooms = countRooms();
+	return nRooms;
+}	
