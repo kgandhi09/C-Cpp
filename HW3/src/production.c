@@ -39,18 +39,23 @@ bool production(int argc, char** argv)
 	//nCols=(int)nRooms;
 
 	FILE* fp = fopen(filename, "r");
-	char arr[13][7];	
-	for(int i =0; i<13; i++){
-
+	int arr[43];	
+	for(int i =0; i<43; i++){ // initialize the array with null chars
 		//for(int j = 0; j < 7; j++){
-		//	fscanf(fp, "%hhd", &arr[i][j]);
+			arr[i]=0;
+		//}
+	}
+	for(int i =0; i<43; i++){
+		//fscanf(fp, "%hhd", &arr[i][j]);
+		//for(){		
+		fscanf(fp,"%d", &arr[i]);
 		//}
 	}
 
-	for(int l =0; l<13; l++){
-		for(int m = 0; m < 7; m++){
-			printf("%2d", arr[l][m]);
-		}
+	for(int l =0; l<43; l++){
+		//for(int m = 0; m < 7; m++){
+		printf("%d", arr[l]);
+		//}
 		printf("\n");
 	}
 		
