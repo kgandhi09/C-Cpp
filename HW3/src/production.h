@@ -13,10 +13,6 @@
 #include <stdbool.h>
 #include <string.h>
 
-int nRows;
-int nCols;
-int treasureLimit;
-
 
 #endif /* PRODUCTION_H_ */
 

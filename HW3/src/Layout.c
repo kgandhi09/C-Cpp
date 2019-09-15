@@ -6,10 +6,10 @@
  */
 
 #include "Layout.h"
-#include "production.h"
+//#include "production.h"
 
 int countRooms(){
-	int nRooms=nRows;
+	int nRooms=0;
 	return nRooms;
 }
 
