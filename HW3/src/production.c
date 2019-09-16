@@ -26,40 +26,22 @@ bool production(int argc, char** argv)
 	for(int i =0; i<100; i++){
 		filename[i] = '\0';
 	}
-	char print = 'n';
-	char pasue = 'n';
 	
 	strcpy(filename, argv[1]);
 
 	int maxRoomsToSearch =strtol(argv[2],&ePtr,10); // command line argument 1 - max no of rooms to search in house
 	int limTreasure=strtol(argv[3],&ePtr,10); // command line argument 2 - total limit of treasure found
-	puts("Im here!");
+	
 	int treasureLimit=(int)limTreasure;
 	//nRows=(int)nRooms;
 	//nCols=(int)nRooms;
 
 	FILE* fp = fopen(filename, "r");
-	int arr[43];	
-	for(int i =0; i<43; i++){ // initialize the array with null chars
-		//for(int j = 0; j < 7; j++){
-			arr[i]=0;
-		//}
-	}
-	for(int i =0; i<43; i++){
-		//fscanf(fp, "%hhd", &arr[i][j]);
-		//for(){		
-		fscanf(fp,"%d", &arr[i]);
-		//}
-	}
-
-	for(int l =0; l<43; l++){
-		//for(int m = 0; m < 7; m++){
-		printf("%d", arr[l]);
-		//}
-		printf("\n");
-	}
-		
-
+	
+	//int** houseLayout=readFileIntoArray(6,6,43, fp);	
+	
+	//printArray(6,6,houseLayout);
+	
 	int nRooms = getNumRooms();
 
 	//printf("%s%s%2d%2d\n", "The command line arguments are - ", filename, maxRoomsToSearch, limTreasure);
@@ -68,6 +50,43 @@ bool production(int argc, char** argv)
 	//printf("%d", testArr[0][0]);
 
 	return answer;
+}
+
+int** readFileIntoArray(int rows, int cols, int nElements, FILE* fp){
+	int* arr=(int*)malloc(nElements * sizeof(int));
+	//int newArr[rows][cols];
+	
+	for(int i =0; i<nElements; i++){
+			arr[i]=0;
+	}
+	
+	for(int i =0; i<nElements; i++){		
+		fscanf(fp,"%d", &arr[i]);
+	}
+	
+	int k=1;
+
+	int** newArr = (int**)malloc(7 * sizeof(int));
+	for(int i = 0; i < rows; i++){
+		newArr[i] = (int*)malloc(7 * sizeof(int));
+		for(int j=0; j<cols;j++){
+			newArr[i][j]=arr[k];			
+			k++;		
+		}
+	}
+	
+	return newArr;
+	
+		
+}
+
+void printArray(int rows, int cols, int** arr){
+	for(int i = 0; i < rows; i++){
+		for(int j=0; j<cols;j++){
+			printf("%d", arr[i][j]);
+		}
+		printf("\n");
+	} 
 }
 
 
