@@ -38,10 +38,10 @@ bool production(int argc, char** argv)
 
 	FILE* fp = fopen(filename, "r");
 	
-	//int** houseLayout=readFileIntoArray(6,6,43, fp);	
-	
-	//printArray(6,6,houseLayout);
-	
+	int* fileArr=readFileIntoArray(6,6,43, fp);	
+	print1DArray(43,fileArr);
+	//printf("%d\n", fileArr[39]);	
+
 	int nRooms = getNumRooms();
 
 	//printf("%s%s%2d%2d\n", "The command line arguments are - ", filename, maxRoomsToSearch, limTreasure);
@@ -52,7 +52,7 @@ bool production(int argc, char** argv)
 	return answer;
 }
 
-int** readFileIntoArray(int rows, int cols, int nElements, FILE* fp){
+int* readFileIntoArray(int rows, int cols, int nElements, FILE* fp){
 	int* arr=(int*)malloc(nElements * sizeof(int));
 	//int newArr[rows][cols];
 	
@@ -75,18 +75,29 @@ int** readFileIntoArray(int rows, int cols, int nElements, FILE* fp){
 		}
 	}
 	
-	return newArr;
+	return arr;
 	
 		
 }
 
-void printArray(int rows, int cols, int** arr){
+int** houseLayout(int rows, int cols, int* arr){
+
+}
+
+void print2DArray(int rows, int cols, int** arr){
 	for(int i = 0; i < rows; i++){
 		for(int j=0; j<cols;j++){
 			printf("%d", arr[i][j]);
 		}
 		printf("\n");
 	} 
+}
+
+void print1DArray(int rows, int* arr){
+	for(int i = 0; i < rows; i++){
+		printf("%2d", arr[i]);
+	}	
+	printf("\n");
 }
 
 

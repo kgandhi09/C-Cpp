@@ -17,5 +17,6 @@
 #endif /* PRODUCTION_H_ */
 
 bool production(int argc,char** argv);
-int** readFileIntoArray(int rows, int cols, int nElements, FILE* fp);
+int* readFileIntoArray(int rows, int cols, int nElements, FILE* fp);
 void printArray(int rows, int cols, int** arr);
+void print1DArray(int rows, int* arr);
