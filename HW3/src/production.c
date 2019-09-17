@@ -135,15 +135,19 @@ int amtTreasure(int room, int* arr){
 
 void interaction(int** houseGraph, int* fileArr){
 	int inputRoomArr[10];
+	int inputNextRoomArr[10];
+	printf("Enter the room number to search the room - ");	
+	
 	for(int i = 0;i<10;i++ ){
-		printf("Enter the room number to search the room - ");	
-		scanf("%d", inputRoomArr);
-		int* adjRoomsTo1 = adjacentRooms(houseGraph, (inputRoomArr[0]-1));
-		int amtTreasureRoom1 = amtTreasure(inputRoomArr[0]-1, fileArr);
+		scanf("%d", &inputRoomArr[i]);
+		int* adjRoomsTo1 = adjacentRooms(houseGraph, (inputRoomArr[i]-1));
+		int amtTreasureRoom1 = amtTreasure(inputRoomArr[i]-1, fileArr);	
 		printf("Treasure in this room is - %d\n", amtTreasureRoom1);	
 		printf("The adjacent rooms are - ");	
 		print1DArray(6, adjRoomsTo1);
 		printf("\n");
+		printf("What is the next room you would like to search - ");
+		
 	}
 
 }
