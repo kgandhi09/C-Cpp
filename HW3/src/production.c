@@ -42,24 +42,23 @@ bool production(int argc, char** argv)
 	//print1DArray(43,fileArr);	
 	
 	int** houseGraph = houseLayout(6,6, fileArr);
+	printf("This is the house Layout!\n");
 	print2DArray(6,6, houseGraph);
 	printf("\n");
 
 	int nRooms = fileArr[0];
-	printf("%d\n\n", nRooms);
-
-	int amtTreasureRoom1 = fileArr[37];
-	int amtTreasureRoom2 = fileArr[38];
-	int amtTreasureRoom3 = fileArr[39];
-	int amtTreasureRoom4 = fileArr[40];
-	int amtTreasureRoom5 = fileArr[41];
-	int amtTreasureRoom6 = fileArr[42];
-
-	printf("%d%3d%3d%2d%2d%2d", amtTreasureRoom1, amtTreasureRoom2, amtTreasureRoom3, amtTreasureRoom4, amtTreasureRoom5, amtTreasureRoom6);
-	printf("\n");
-	int* adjRoomsTo1 = adjacentRooms(houseGraph, 5);	
-
+	interaction(houseGraph, fileArr);
+	/*
+	int roomArr[10];
+	printf("Enter the room number to search the room - ");	
+	scanf("%d", roomArr);
+	int* adjRoomsTo1 = adjacentRooms(houseGraph, (roomArr[0]-1));
+	int amtTreasureRoom1 = amtTreasure(roomArr[0]-1, fileArr);
+	printf("Treasure in this room is - %d\n", amtTreasureRoom1);	
+	printf("The adjacent rooms are - ");	
+	print1DArray(5, adjRoomsTo1);
 	//printf("%d", test);
+	*/
 
 	return answer;
 }
@@ -112,7 +111,7 @@ void print1DArray(int rows, int* arr){
 }
 
 int* adjacentRooms(int** arr, int room){
-	int* adjRooms = (int*)malloc(sizeof(int)*6);
+	int* adjRooms = (int*)malloc(sizeof(int)*7);
 	int j = 0;
 	for(int i = 0; i<6; i++){
 		if( arr[room][i] == 1){
@@ -122,6 +121,31 @@ int* adjacentRooms(int** arr, int room){
 		
 	}
 	return adjRooms;
+}
+
+int amtTreasure(int room, int* arr){
+	int result = 0;
+	for(int i = 0;i<5; i++){
+		if(room == i){
+			result = arr[37+i];		
+		}
+	}
+	return result;
+}
+
+void interaction(int** houseGraph, int* fileArr){
+	int inputRoomArr[10];
+	for(int i = 0;i<10;i++ ){
+		printf("Enter the room number to search the room - ");	
+		scanf("%d", inputRoomArr);
+		int* adjRoomsTo1 = adjacentRooms(houseGraph, (inputRoomArr[0]-1));
+		int amtTreasureRoom1 = amtTreasure(inputRoomArr[0]-1, fileArr);
+		printf("Treasure in this room is - %d\n", amtTreasureRoom1);	
+		printf("The adjacent rooms are - ");	
+		print1DArray(6, adjRoomsTo1);
+		printf("\n");
+	}
+
 }
 
 

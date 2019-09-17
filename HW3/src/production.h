@@ -22,3 +22,5 @@ void print2DArray(int rows, int cols, int** arr);
 void print1DArray(int rows, int* arr);
 int** houseLayout(int rows, int cols, int* arr);
 int* adjacentRooms(int** arr, int room);
+int amtTreasure(int room, int* arr);
+void interaction(int** houseGraph, int* fileArr);
