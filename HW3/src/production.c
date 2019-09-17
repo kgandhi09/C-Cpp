@@ -46,8 +46,8 @@ bool production(int argc, char** argv)
 	print2DArray(6,6, houseGraph);
 	printf("\n");
 
-	int nRooms = fileArr[0];
-	interaction(houseGraph, fileArr);
+	//int nRooms = fileArr[0];
+	interaction(houseGraph, fileArr, treasureLimit, maxRoomsToSearch);
 	/*
 	int roomArr[10];
 	printf("Enter the room number to search the room - ");	
@@ -133,23 +133,67 @@ int amtTreasure(int room, int* arr){
 	return result;
 }
 
-void interaction(int** houseGraph, int* fileArr){
-	int inputRoomArr[10];
-	int inputNextRoomArr[10];
+void interaction(int** houseGraph, int* fileArr, int treasureLimit, int maxRooms){
+	int inputRoomNo;
+	int* adjRoomsTo1 = (int*)malloc(sizeof(int)*7);
+	//int* visitedRooms;
+	int* visitedRooms = (int*)malloc(sizeof(int)*10);
+	int countVisit = 0;
+	int totalTreasure = 0;
+	bool firstTime = true;
 	printf("Enter the room number to search the room - ");	
-	
-	for(int i = 0;i<10;i++ ){
-		scanf("%d", &inputRoomArr[i]);
-		int* adjRoomsTo1 = adjacentRooms(houseGraph, (inputRoomArr[i]-1));
-		int amtTreasureRoom1 = amtTreasure(inputRoomArr[i]-1, fileArr);	
-		printf("Treasure in this room is - %d\n", amtTreasureRoom1);	
-		printf("The adjacent rooms are - ");	
-		print1DArray(6, adjRoomsTo1);
-		printf("\n");
-		printf("What is the next room you would like to search - ");
+	scanf("%d", &inputRoomNo);
+	while(countVisit < maxRooms){
+		if(((checkAdjRoomPresent(adjRoomsTo1, inputRoomNo)) && !(visited(visitedRooms, inputRoomNo, countVisit))) || firstTime){
+			visitedRooms[countVisit] = inputRoomNo;
+			countVisit++;		
+			firstTime = false;
+			adjRoomsTo1 = adjacentRooms(houseGraph, (inputRoomNo-1));
+			int amtTreasureRoom1 = amtTreasure(inputRoomNo-1, fileArr);
+			totalTreasure += amtTreasureRoom1;
+			if(totalTreasure > treasureLimit){
+				printf("Total Treasure exceeds limit you provided!\n");
+				break;			
+			}
+			printf("Treasure in this room is - %d\n", amtTreasureRoom1);	
+			printf("The adjacent rooms are - ");	
+			print1DArray(6, adjRoomsTo1);
+			printf("Total treasure till now is - %d\n", totalTreasure);
+			printf("\n");
+			printf("What is the next room you would like to search - ");			
+			scanf("%d", &inputRoomNo);
+		}
+			
+		else{
+			printf("sorry the room you entered is not reachable, enter from the adj rooms\n");
+				break;		
+			}
+		
 		
 	}
-
+	if(countVisit>= maxRooms){
+		printf("No of rooms searched exceeds the limit you provided!\n");	
+	}
 }
 
+bool checkAdjRoomPresent(int* arr, int roomNo){
+	bool result = false;	
+	for(int i = 0;i<6;i++){
+		if(arr[i]==roomNo){
+			result = true;
+			break;
+		}	
+	}
+	return result;
+}	
 
+bool visited(int* arr, int roomNo, int count){
+	bool result = false;
+	for(int i = 0;i<count; i++){
+		if(arr[i] == roomNo){
+			result = true;
+			break;
+		}
+	}
+	return result;
+}
