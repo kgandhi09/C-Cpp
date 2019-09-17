@@ -38,23 +38,34 @@ bool production(int argc, char** argv)
 
 	FILE* fp = fopen(filename, "r");
 	
-	int* fileArr=readFileIntoArray(6,6,43, fp);	
-	print1DArray(43,fileArr);
-	//printf("%d\n", fileArr[39]);	
-
-	int nRooms = getNumRooms();
-
-	//printf("%s%s%2d%2d\n", "The command line arguments are - ", filename, maxRoomsToSearch, limTreasure);
+	int* fileArr=readFileIntoArray(43, fp);	
+	//print1DArray(43,fileArr);	
 	
-	//int** testArr = houseLayout(nRows,nCols);
-	//printf("%d", testArr[0][0]);
+	int** houseGraph = houseLayout(6,6, fileArr);
+	print2DArray(6,6, houseGraph);
+	printf("\n");
+
+	int nRooms = fileArr[0];
+	printf("%d\n\n", nRooms);
+
+	int amtTreasureRoom1 = fileArr[37];
+	int amtTreasureRoom2 = fileArr[38];
+	int amtTreasureRoom3 = fileArr[39];
+	int amtTreasureRoom4 = fileArr[40];
+	int amtTreasureRoom5 = fileArr[41];
+	int amtTreasureRoom6 = fileArr[42];
+
+	printf("%d%3d%3d%2d%2d%2d", amtTreasureRoom1, amtTreasureRoom2, amtTreasureRoom3, amtTreasureRoom4, amtTreasureRoom5, amtTreasureRoom6);
+	printf("\n");
+	int* adjRoomsTo1 = adjacentRooms(houseGraph, 5);	
+
+	//printf("%d", test);
 
 	return answer;
 }
 
-int* readFileIntoArray(int rows, int cols, int nElements, FILE* fp){
+int* readFileIntoArray(int nElements, FILE* fp){
 	int* arr=(int*)malloc(nElements * sizeof(int));
-	//int newArr[rows][cols];
 	
 	for(int i =0; i<nElements; i++){
 			arr[i]=0;
@@ -64,6 +75,13 @@ int* readFileIntoArray(int rows, int cols, int nElements, FILE* fp){
 		fscanf(fp,"%d", &arr[i]);
 	}
 	
+	
+	return arr;
+	
+		
+}
+
+int** houseLayout(int rows, int cols, int* arr){
 	int k=1;
 
 	int** newArr = (int**)malloc(7 * sizeof(int));
@@ -74,20 +92,13 @@ int* readFileIntoArray(int rows, int cols, int nElements, FILE* fp){
 			k++;		
 		}
 	}
-	
-	return arr;
-	
-		
-}
-
-int** houseLayout(int rows, int cols, int* arr){
-
+	return newArr;	
 }
 
 void print2DArray(int rows, int cols, int** arr){
 	for(int i = 0; i < rows; i++){
 		for(int j=0; j<cols;j++){
-			printf("%d", arr[i][j]);
+			printf("%2d", arr[i][j]);
 		}
 		printf("\n");
 	} 
@@ -100,5 +111,17 @@ void print1DArray(int rows, int* arr){
 	printf("\n");
 }
 
+int* adjacentRooms(int** arr, int room){
+	int* adjRooms = (int*)malloc(sizeof(int)*6);
+	int j = 0;
+	for(int i = 0; i<6; i++){
+		if( arr[room][i] == 1){
+			adjRooms[j] = i+1;  
+			j++;				
+		} 
+		
+	}
+	return adjRooms;
+}
 
 

@@ -13,10 +13,12 @@
 #include <stdbool.h>
 #include <string.h>
 
-
+//int test = 5;
 #endif /* PRODUCTION_H_ */
 
 bool production(int argc,char** argv);
-int* readFileIntoArray(int rows, int cols, int nElements, FILE* fp);
-void printArray(int rows, int cols, int** arr);
+int* readFileIntoArray(int nElements, FILE* fp);
+void print2DArray(int rows, int cols, int** arr);
 void print1DArray(int rows, int* arr);
+int** houseLayout(int rows, int cols, int* arr);
+int* adjacentRooms(int** arr, int room);
