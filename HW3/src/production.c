@@ -159,15 +159,24 @@ void interaction(int** houseGraph, int* fileArr, int treasureLimit, int maxRooms
 			printf("The adjacent rooms are - ");	
 			print1DArray(6, adjRoomsTo1);
 			printf("Total treasure till now is - %d\n", totalTreasure);
+			printf("Rooms visited till now - ");
+			print1DArray(countVisit, visitedRooms);
 			printf("\n");
 			printf("What is the next room you would like to search - ");			
 			scanf("%d", &inputRoomNo);
 		}
 			
 		else{
-			printf("sorry the room you entered is not reachable, enter from the adj rooms\n");
+			if(visited(visitedRooms, inputRoomNo, countVisit)){
+				printf("sorry the room you entered is already visited\n");
 				break;		
+		
 			}
+			else{
+				printf("sorry the room you entered is not reachable, enter from the adj rooms\n");
+				break;
+			}	
+		}
 		
 		
 	}
