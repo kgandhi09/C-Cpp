@@ -7,6 +7,7 @@
 #include "production.h"
 #include "Layout.h"
 #include "Search.h"
+#include "tests.h"
 #include <stdio.h>
 #include <stdlib.h>
 #include <stdbool.h>
@@ -80,6 +81,9 @@ int* readFileIntoArray(int nElements, FILE* fp){
 		
 }
 
+
+
+
 int** houseLayout(int rows, int cols, int* arr){
 	int k=1;
 
@@ -93,6 +97,7 @@ int** houseLayout(int rows, int cols, int* arr){
 	}
 	return newArr;	
 }
+
 
 void print2DArray(int rows, int cols, int** arr){
 	for(int i = 0; i < rows; i++){

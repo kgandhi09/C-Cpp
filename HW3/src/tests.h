@@ -13,5 +13,6 @@
 #include <stdbool.h>
 
 bool tests(void);
+bool test1();
 
 #endif /* TESTS_H_ */

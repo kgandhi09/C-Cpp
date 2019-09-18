@@ -18,7 +18,6 @@
 bool tests(void)
 {
 	bool results=true;
-	//puts("During tests\n");
-	
 	return results;
 }
+
