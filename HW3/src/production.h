@@ -17,12 +17,13 @@
 #endif /* PRODUCTION_H_ */
 
 bool production(int argc,char** argv);
-int* readFileIntoArray(int nElements, FILE* fp);
+int** readFileIntoHouse(int numOfRooms, FILE* fp);
+int* readFileIntoTreasure(int numOfRooms, FILE* fp);
 void print2DArray(int rows, int cols, int** arr);
 void print1DArray(int rows, int* arr);
 int** houseLayout(int rows, int cols, int* arr);
-int* adjacentRooms(int** arr, int room);
+int* adjacentRooms(int** arr, int room, int noOfRooms);
 int amtTreasure(int room, int* arr);
-void interaction(int** houseGraph, int* fileArr, int treasureLimit, int maxRooms);
-bool checkAdjRoomPresent(int* arr, int roomNo);
+void interaction(int noOfRooms, int** houseGraph, int* fileArr, int treasureLimit, int maxRooms);
+bool checkAdjRoomPresent(int* arr, int roomNo, int noOfRooms);
 bool visited(int* arr, int roomNo, int count);

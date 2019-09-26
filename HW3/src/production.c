@@ -34,55 +34,52 @@ bool production(int argc, char** argv)
 	int limTreasure=strtol(argv[3],&ePtr,10); // command line argument 2 - total limit of treasure found
 	
 	int treasureLimit=(int)limTreasure;
-	//nRows=(int)nRooms;
-	//nCols=(int)nRooms;
 
-	FILE* fp = fopen(filename, "r");
+	FILE* fp = fopen(filename, "r");	
 	
-	int* fileArr=readFileIntoArray(43, fp);	
-	//print1DArray(43,fileArr);	
+	int numOfRooms;
+	fscanf(fp, "%d", &numOfRooms);
 	
-	int** houseGraph = houseLayout(6,6, fileArr);
+	int** houseGraph = readFileIntoHouse(numOfRooms,fp);
 	printf("This is the house Layout!\n");
-	print2DArray(6,6, houseGraph);
+	print2DArray(numOfRooms,numOfRooms, houseGraph);
+	printf("\n");
+	
+	int* treasures = readFileIntoTreasure(numOfRooms, fp);
+	printf("This is treasure in each rooms!\n");	
+	print1DArray(numOfRooms, treasures);
 	printf("\n");
 
-	//int nRooms = fileArr[0];
-	interaction(houseGraph, fileArr, treasureLimit, maxRoomsToSearch);
-	/*
-	int roomArr[10];
-	printf("Enter the room number to search the room - ");	
-	scanf("%d", roomArr);
-	int* adjRoomsTo1 = adjacentRooms(houseGraph, (roomArr[0]-1));
-	int amtTreasureRoom1 = amtTreasure(roomArr[0]-1, fileArr);
-	printf("Treasure in this room is - %d\n", amtTreasureRoom1);	
-	printf("The adjacent rooms are - ");	
-	print1DArray(5, adjRoomsTo1);
-	//printf("%d", test);
-	*/
-
+	interaction(numOfRooms, houseGraph, treasures, treasureLimit, maxRoomsToSearch);
 	return answer;
 }
 
-int* readFileIntoArray(int nElements, FILE* fp){
-	int* arr=(int*)malloc(nElements * sizeof(int));
+int** readFileIntoHouse(int numOfRooms, FILE* fp){
+
+	printf("Number of Rooms: %d\n", numOfRooms);
 	
-	for(int i =0; i<nElements; i++){
-			arr[i]=0;
+	int** houseLayout = (int**)malloc(numOfRooms * sizeof(int*));
+	for(int i = 0; i < numOfRooms; i++){
+		houseLayout[i] = (int*)malloc(numOfRooms * sizeof(int));
+		for(int j = 0; j < numOfRooms;j++){
+			fscanf(fp, "%d", &houseLayout[i][j]);	
+		}
 	}
-	
-	for(int i =0; i<nElements; i++){		
-		fscanf(fp,"%d", &arr[i]);
-	}
-	
-	
-	return arr;
-	
+
+	return houseLayout;
 		
 }
 
+int* readFileIntoTreasure(int numOfRooms, FILE* fp){
 
+	int* treasure = (int*)malloc((numOfRooms+1) * sizeof(int));
+	for(int i = 0; i < numOfRooms; i++){
+		fscanf(fp, "%d", &treasure[i]);
+	}
 
+	return treasure;
+
+}
 
 int** houseLayout(int rows, int cols, int* arr){
 	int k=1;
@@ -110,15 +107,15 @@ void print2DArray(int rows, int cols, int** arr){
 
 void print1DArray(int rows, int* arr){
 	for(int i = 0; i < rows; i++){
-		printf("%2d", arr[i]);
+		printf("%3d", arr[i]);
 	}	
 	printf("\n");
 }
 
-int* adjacentRooms(int** arr, int room){
+int* adjacentRooms(int** arr, int room, int noOfRooms){
 	int* adjRooms = (int*)malloc(sizeof(int)*7);
 	int j = 0;
-	for(int i = 0; i<6; i++){
+	for(int i = 0; i<noOfRooms; i++){
 		if( arr[room][i] == 1){
 			adjRooms[j] = i+1;  
 			j++;				
@@ -131,14 +128,14 @@ int* adjacentRooms(int** arr, int room){
 int amtTreasure(int room, int* arr){
 	int result = 0;
 	for(int i = 0;i<5; i++){
-		if(room == i){
-			result = arr[37+i];		
+		if((room-1) == i){
+			result = arr[i];		
 		}
 	}
 	return result;
 }
 
-void interaction(int** houseGraph, int* fileArr, int treasureLimit, int maxRooms){
+void interaction(int noOfRooms, int** houseGraph, int* treasures, int treasureLimit, int maxRooms){
 	int inputRoomNo;
 	int* adjRoomsTo1 = (int*)malloc(sizeof(int)*7);
 	//int* visitedRooms;
@@ -149,12 +146,12 @@ void interaction(int** houseGraph, int* fileArr, int treasureLimit, int maxRooms
 	printf("Enter the room number to search the room - ");	
 	scanf("%d", &inputRoomNo);
 	while(countVisit < maxRooms){
-		if(((checkAdjRoomPresent(adjRoomsTo1, inputRoomNo)) && !(visited(visitedRooms, inputRoomNo, countVisit))) || firstTime){
+		if(((checkAdjRoomPresent(adjRoomsTo1, inputRoomNo, noOfRooms)) && !(visited(visitedRooms, inputRoomNo, countVisit))) || firstTime){
 			visitedRooms[countVisit] = inputRoomNo;
 			countVisit++;		
 			firstTime = false;
-			adjRoomsTo1 = adjacentRooms(houseGraph, (inputRoomNo-1));
-			int amtTreasureRoom1 = amtTreasure(inputRoomNo-1, fileArr);
+			adjRoomsTo1 = adjacentRooms(houseGraph, (inputRoomNo-1), noOfRooms);
+			int amtTreasureRoom1 = amtTreasure(inputRoomNo, treasures);
 			totalTreasure += amtTreasureRoom1;
 			if(totalTreasure > treasureLimit){
 				printf("Total Treasure exceeds limit you provided!\n");
@@ -162,7 +159,7 @@ void interaction(int** houseGraph, int* fileArr, int treasureLimit, int maxRooms
 			}
 			printf("Treasure in this room is - %d\n", amtTreasureRoom1);	
 			printf("The adjacent rooms are - ");	
-			print1DArray(6, adjRoomsTo1);
+			print1DArray(7, adjRoomsTo1);
 			printf("Total treasure till now is - %d\n", totalTreasure);
 			printf("Rooms visited till now - ");
 			print1DArray(countVisit, visitedRooms);
@@ -190,9 +187,9 @@ void interaction(int** houseGraph, int* fileArr, int treasureLimit, int maxRooms
 	}
 }
 
-bool checkAdjRoomPresent(int* arr, int roomNo){
+bool checkAdjRoomPresent(int* arr, int roomNo, int noOfRooms){
 	bool result = false;	
-	for(int i = 0;i<6;i++){
+	for(int i = 0;i<noOfRooms;i++){
 		if(arr[i]==roomNo){
 			result = true;
 			break;
