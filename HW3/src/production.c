@@ -50,6 +50,8 @@ bool production(int argc, char** argv)
 	printf("This is treasure in each rooms!\n");	
 	print1DArray(numOfRooms, treasures);
 	printf("\n");
+	int testTreasure = amtTreasure(7, treasures, numOfRooms);
+	printf("Treasure in room is - %d\n\n", testTreasure);
 
 	interaction(numOfRooms, houseGraph, treasures, treasureLimit, maxRoomsToSearch);
 	return answer;
@@ -126,9 +128,9 @@ int* adjacentRooms(int** arr, int room, int noOfRooms){
 	return adjRooms;
 }
 
-int amtTreasure(int room, int* arr){
+int amtTreasure(int room, int* arr, int noOfRooms){
 	int result = 0;
-	for(int i = 0;i<5; i++){
+	for(int i = 0;i<noOfRooms; i++){
 		if((room-1) == i){
 			result = arr[i];		
 		}
@@ -138,7 +140,7 @@ int amtTreasure(int room, int* arr){
 
 void interaction(int noOfRooms, int** houseGraph, int* treasures, int treasureLimit, int maxRooms){
 	int inputRoomNo;
-	int* adjRoomsTo1 = (int*)malloc(sizeof(int)*7);
+	int* adjRoomsTo = (int*)malloc(sizeof(int)*7);
 	//int* visitedRooms;
 	int* visitedRooms = (int*)malloc(sizeof(int)*10);
 	int countVisit = 0;
@@ -147,20 +149,20 @@ void interaction(int noOfRooms, int** houseGraph, int* treasures, int treasureLi
 	printf("Enter the room number to search the room - ");	
 	scanf("%d", &inputRoomNo);
 	while(countVisit < maxRooms){
-		if(((checkAdjRoomPresent(adjRoomsTo1, inputRoomNo, noOfRooms)) && !(visited(visitedRooms, inputRoomNo, countVisit))) || firstTime){
+		if(((checkAdjRoomPresent(adjRoomsTo, inputRoomNo, noOfRooms)) && !(visited(visitedRooms, inputRoomNo, countVisit))) || firstTime){
 			visitedRooms[countVisit] = inputRoomNo;
 			countVisit++;		
 			firstTime = false;
-			adjRoomsTo1 = adjacentRooms(houseGraph, (inputRoomNo-1), noOfRooms);
-			int amtTreasureRoom1 = amtTreasure(inputRoomNo, treasures);
-			totalTreasure += amtTreasureRoom1;
+			adjRoomsTo = adjacentRooms(houseGraph, (inputRoomNo-1), noOfRooms);
+			int amtTreasureRoom = amtTreasure(inputRoomNo, treasures, noOfRooms);
+			totalTreasure += amtTreasureRoom;
 			if(totalTreasure > treasureLimit){
 				printf("Total Treasure exceeds limit you provided!\n");
 				break;			
 			}
-			printf("Treasure in this room is - %d\n", amtTreasureRoom1);	
+			printf("Treasure in this room is - %d\n", amtTreasureRoom);	
 			printf("The adjacent rooms are - ");	
-			print1DArray(7, adjRoomsTo1);
+			print1DArray(7, adjRoomsTo);
 			printf("Total treasure till now is - %d\n", totalTreasure);
 			printf("Rooms visited till now - ");
 			print1DArray(countVisit, visitedRooms);

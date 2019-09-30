@@ -15,19 +15,21 @@
 #include <stdbool.h>
 #include <string.h>
 #include <math.h>
+#include <fstream>
+#include "interaction.h"
+using namespace std;
 
 class production {
 public:
 	production(int argc, char* argv[]);
 	virtual ~production();
 	bool runProduction(int argc, char* argv[]);
-	int** readFileIntoHouse(int numOfRooms, FILE* fp);
+	int** readFileIntoHouse(int numOfRooms,  FILE* fp);
 	int* readFileIntoTreasure(int numOfRooms, FILE* fp);
 	void print2DArray(int rows, int cols, int** arr);
 	void print1DArray(int rows, int* arr);
 	int* adjacentRooms(int** arr, int room, int noOfRooms);
-	int amtTreasure(int room, int* arr);
-	void interaction(int noOfRooms, int** houseGraph, int* fileArr, int treasureLimit, int maxRooms);
+	int amtTreasure(int room, int* arr, int noOfRooms);
 	bool checkAdjRoomPresent(int* arr, int roomNo, int noOfRooms);
 	bool visited(int* arr, int roomNo, int count);
 
@@ -35,6 +37,7 @@ public:
 	int limTreasure = 0;
 	char filename[100];
 	int numOfRooms = 0;
+	//fstream fp;
 };
 
 

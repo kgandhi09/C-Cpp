@@ -23,7 +23,7 @@ void print2DArray(int rows, int cols, int** arr);
 void print1DArray(int rows, int* arr);
 int** houseLayout(int rows, int cols, int* arr);
 int* adjacentRooms(int** arr, int room, int noOfRooms);
-int amtTreasure(int room, int* arr);
+int amtTreasure(int room, int* arr,int noOfRooms);
 void interaction(int noOfRooms, int** houseGraph, int* fileArr, int treasureLimit, int maxRooms);
 bool checkAdjRoomPresent(int* arr, int roomNo, int noOfRooms);
 bool visited(int* arr, int roomNo, int count);
