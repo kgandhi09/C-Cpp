@@ -13,7 +13,7 @@ interaction::interaction(int noOfRooms, int** houseGraph, int* treasures, int tr
 
 interaction::~interaction(){}
 
-void interaction::runInteraction(int argc, char* argv[], int noOfRooms, int** houseGraph, int* treasures, int treasureLimit, int maxRooms){
+void interaction::runInteraction(int noOfRooms, int** houseGraph, int* treasures, int treasureLimit, int maxRooms){
 	int inputRoomNo;
 	int* adjRoomsTo = (int*)malloc(sizeof(int)*noOfRooms);
 	//int* visitedRooms;
@@ -23,14 +23,14 @@ void interaction::runInteraction(int argc, char* argv[], int noOfRooms, int** ho
 	bool firstTime = true;
 	printf("Enter the room number to search the room - ");
 	scanf("%d", &inputRoomNo);
-	production p = production(argc, argv);
+	controller c = controller();
 	while(countVisit < maxRooms){
-		if(((p.checkAdjRoomPresent(adjRoomsTo, inputRoomNo, noOfRooms)) && !(p.visited(visitedRooms, inputRoomNo, countVisit))) || firstTime){
+		if(((c.checkAdjRoomPresent(adjRoomsTo, inputRoomNo, noOfRooms)) && !(c.visited(visitedRooms, inputRoomNo, countVisit))) || firstTime){
 			visitedRooms[countVisit] = inputRoomNo;
 			countVisit++;
 			firstTime = false;
-			adjRoomsTo = p.adjacentRooms(houseGraph, (inputRoomNo-1), noOfRooms);
-			int amtTreasureRoom = p.amtTreasure(inputRoomNo, treasures, noOfRooms);
+			adjRoomsTo = c.adjacentRooms(houseGraph, (inputRoomNo-1), noOfRooms);
+			int amtTreasureRoom = c.amtTreasure(inputRoomNo, treasures, noOfRooms);
 			totalTreasure += amtTreasureRoom;
 			if(totalTreasure > treasureLimit){
 				printf("Total Treasure exceeds limit you provided!\n");
@@ -38,17 +38,17 @@ void interaction::runInteraction(int argc, char* argv[], int noOfRooms, int** ho
 			}
 			printf("Treasure in this room is - %d\n", amtTreasureRoom);
 			printf("The adjacent rooms are - ");
-			p.print1DArray(7, adjRoomsTo);
+			c.print1DArray(7, adjRoomsTo);
 			printf("Total treasure till now is - %d\n", totalTreasure);
 			printf("Rooms visited till now - ");
-			p.print1DArray(countVisit, visitedRooms);
+			c.print1DArray(countVisit, visitedRooms);
 			printf("\n");
 			printf("What is the next room you would like to search - ");
 			scanf("%d", &inputRoomNo);
 		}
 
 		else{
-			if(p.visited(visitedRooms, inputRoomNo, countVisit)){
+			if(c.visited(visitedRooms, inputRoomNo, countVisit)){
 				printf("sorry the room you entered is already visited\n");
 				break;
 

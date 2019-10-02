@@ -14,12 +14,13 @@
 #include <string.h>
 #include <math.h>
 #include "production.h"
+#include "controller.h"
 
 class interaction {
 public:
 	interaction(int noOfRooms, int** houseGraph, int* treasures, int treasureLimit, int maxRooms);
 	virtual ~interaction();
-	void runInteraction(int argc, char* argv[], int noOfRooms, int** houseGraph, int* treasures, int treasureLimit, int maxRooms);
+	void runInteraction(int noOfRooms, int** houseGraph, int* treasures, int treasureLimit, int maxRooms);
 
 };
 
