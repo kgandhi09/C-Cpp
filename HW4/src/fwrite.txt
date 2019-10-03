@@ -1,0 +1,9 @@
+The Rooms visited till now are - 
+1
+4
+5
+7
+0
+0
+0
+Sub Total of treasure till now is - 15

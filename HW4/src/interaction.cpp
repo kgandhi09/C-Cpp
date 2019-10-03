@@ -21,6 +21,9 @@ void interaction::runInteraction(int noOfRooms, int** houseGraph, int* treasures
 	int countVisit = 0;
 	int totalTreasure = 0;
 	bool firstTime = true;
+
+	FILE* writeData = fopen("fwrite.txt", "w");
+
 	printf("Enter the room number to search the room - ");
 	scanf("%d", &inputRoomNo);
 	controller c = controller();
@@ -42,6 +45,7 @@ void interaction::runInteraction(int noOfRooms, int** houseGraph, int* treasures
 			printf("Total treasure till now is - %d\n", totalTreasure);
 			printf("Rooms visited till now - ");
 			c.print1DArray(countVisit, visitedRooms);
+
 			printf("\n");
 			printf("What is the next room you would like to search - ");
 			scanf("%d", &inputRoomNo);
@@ -64,6 +68,19 @@ void interaction::runInteraction(int noOfRooms, int** houseGraph, int* treasures
 	if(countVisit>= maxRooms){
 		printf("No of rooms searched exceeds the limit you provided!\n");
 	}
+	char str[10];
+	fputs("The Rooms visited till now are - \n", writeData);
+	for(int i = 0; i<maxRooms; i++){
+		//string val=to_string(visitedRooms[i]);
+		sprintf(str, "%d\n", visitedRooms[i]);
+		fputs(str, writeData);
+	}
+
+	char str2[12];
+	sprintf(str2, "%d", totalTreasure);
+	fputs("Sub Total of treasure till now is - ", writeData);
+	fputs(str2, writeData);
+
 }
 
 
