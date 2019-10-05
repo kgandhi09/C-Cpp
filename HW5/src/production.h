@@ -14,18 +14,20 @@
 #include <string.h>
 #include <math.h>
 #include <fstream>
+#include "interaction.h"
 
 using namespace std;
 
 class production{
 public:
+
 	#define ROWS 8
 	#define COLS 8
-	char value2symbol(int i);
 	production(int argc, char* argv[]);
 	virtual ~production();
 	bool runProduction(int argc, char* argv[]);
-	void printDisplayFancy(int d[ROWS][COLS]);
+
+	interaction i = interaction();
 
 };
 
