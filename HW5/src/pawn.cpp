@@ -15,17 +15,9 @@ pawn::~pawn(){
 
 }
 
-void pawn::move(int d[][nCOLS], int** arr, int player){
-	char x = ' ';
-	int y = 0;
-	//printf("Enter the piece number to move - ");
-	//scanf("%c%d", &x,&y);
-	//printf("%c%d\n", x,y);
-	int** pm = possibleMoves(d, 2, 7, 1);
-	//print2DArray(2,2, pm);
-	printLocationArray(1, pm);
-
-
+void pawn::move(int d[][nCOLS], int x1, int x2, int y1, int y2, int player){
+	d[x1][y1] = 0;
+	d[x2][y2] = player;
 }
 
 int** pawn::possibleMoves(int d[][nCOLS], int x, int y, int player){
@@ -200,7 +192,34 @@ int** pawn::findPossiblePiecesToMove(int d[][nCOLS], int player){
 
 }
 
+void pawn::printBoard(int d[][nCOLS]) {
 
+	printf("  +---+---+---+---+---+---+---+---+\n");
+
+	for (int r = 0; r < nROWS; r++) {
+		printf("%d |", r + 1);
+		for (int c = 0; c < nCOLS; c++) {
+			printf(" %c |", value2symbol(d[r][c]));
+		}
+		printf("\n");
+		printf("  +---+---+---+---+---+---+---+---+\n");
+	}
+
+	printf("    A   B   c   D   E   F   G   H\n");
+
+}
+
+char pawn::value2symbol(int i) {
+	switch (i) {
+	case 0:
+		return ' ';
+	case 1:
+		return 'R';
+	case 2:
+		return 'B';
+	}
+	return ('?');
+}
 void pawn::print2DArray(int rows, int cols, int** arr){
 	for(int i = 0; i < rows; i++){
 		for(int j=0; j<cols;j++){
@@ -224,5 +243,7 @@ void pawn::printLocationArray(int rows, int** arr) {
 	}
 	printf("\n");
 }
+
+
 
 

@@ -25,7 +25,7 @@ public:
 	virtual ~interaction();
 	void runInteraction();
 	char value2symbol(int i);
-	void printBoard(int d[][nCOLS]);
+	//void printBoard(int d[][nCOLS]);
 	void print2DArray(int rows, int cols, int** arr);
 	void print1DArray(int rows, int* arr);
 	void printLocationArray(int rows, int** arr);

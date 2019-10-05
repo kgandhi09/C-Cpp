@@ -6,6 +6,7 @@
  */
 
 #include "interaction.h"
+using namespace std;
 
 interaction::interaction() {
 
@@ -17,48 +18,63 @@ interaction::~interaction() {
 
 void interaction::runInteraction() {
 
-	int d[nROWS][nCOLS] = { { 0, 1, 0, 1, 0, 1, 0, 1 },
-			{ 1, 0, 1, 0, 1, 0, 1, 0 }, { 0, 1, 0, 1, 0, 1, 0, 1 }, { 0, 0, 0,
-					0, 0, 0, 0, 0 }, { 0, 0, 0, 0, 0, 0, 0, 0 }, { 2, 0, 2, 0,
-					2, 0, 2, 0 }, { 0, 2, 0, 2, 0, 2, 0, 2 }, { 2, 0, 2, 0, 2,
-					0, 2, 0 } };
+	int d[nROWS][nCOLS] = {
+			{ 0, 1, 0, 1, 0, 1, 0, 1 },
+			{ 1, 0, 1, 0, 1, 0, 1, 0 },
+			{ 0, 1, 0, 1, 0, 1, 0, 1 },
+			{ 0, 0, 0, 0, 0, 0, 0, 0 },
+			{ 0, 0, 0, 0, 0, 0, 0, 0 },
+			{ 2, 0, 2, 0, 2, 0, 2, 0 },
+			{ 0, 2, 0, 2, 0, 2, 0, 2 },
+			{ 2, 0, 2, 0, 2, 0, 2, 0 }};
+
 	pawn p = pawn();
-	printBoard(d);
+	p.printBoard(d);
 	printf("\n\n");
-	int** possiblePiecesToMove = p.findPossiblePiecesToMove(d, 2);
-	printf("Possible pieces that can be moved are - \n");
-	printLocationArray(4, possiblePiecesToMove);
-	p.move(d,possiblePiecesToMove,2);
-}
+	int i = 0;
+	int player;
+	char c = ' ';
+	int e = 0;
 
-void interaction::printBoard(int d[][nCOLS]) {
 
-	printf("  +---+---+---+---+---+---+---+---+\n");
-
-	for (int r = 0; r < nROWS; r++) {
-		printf("%d |", r + 1);
-		for (int c = 0; c < nCOLS; c++) {
-			printf(" %c |", value2symbol(d[r][c]));
+	while(1){
+		if(i%2 == 0){
+			player = 1;
+			printf("!!!PLAYER 1 TURN!!!\n");
 		}
+		else if(i%2 == 1){
+			player = 2;
+			printf("!!!PLAYER 2 TURN!!!\n");
+		}
+		int** possiblePiecesToMove = p.findPossiblePiecesToMove(d, player);
+		//printf(" size of possible %d\n", sizeof(possiblePiecesToMove)/2);
+		printf("Possible pieces to move are - \n");
+		printLocationArray(4, possiblePiecesToMove);
+		printf("Enter the piece to move - ");
+		cin >> c >> e;
+		cout << "\n";
+		cout << "Possible Moves for the piece "<< c << e <<  " are - \n";
+		int y1 = (c - '0') - 17;
+		int x1 = e - 1;
+		int** pM = p.possibleMoves(d, x1, y1, player);
+		printLocationArray(2, pM);
+		//printf("size of PM %d\n", sizeof(pM)/2);
+		cout << "Enter position to move selected piece - ";
+		cin >> c >> e;
 		printf("\n");
-		printf("  +---+---+---+---+---+---+---+---+\n");
+		int y2 = (c - '0') - 17;
+		int x2 = e - 1;
+		//cout << "selected pos is " << x2 << y2 << "\n";
+		p.move(d, x1, x2, y1, y2, player);
+		cout << "Hello\n";
+		p.printBoard(d);
+		i++;
+		printf("\n");
 	}
-
-	printf("    A   B   c   D   E   F   G   H\n");
 
 }
 
-char interaction::value2symbol(int i) {
-	switch (i) {
-	case 0:
-		return ' ';
-	case 1:
-		return 'R';
-	case 2:
-		return 'B';
-	}
-	return ('?');
-}
+
 
 void interaction::print2DArray(int rows, int cols, int** arr) {
 	for (int i = 0; i < rows; i++) {
