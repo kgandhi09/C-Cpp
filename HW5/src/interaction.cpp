@@ -29,7 +29,7 @@ void interaction::runInteraction() {
 			{ 2, 0, 2, 0, 2, 0, 2, 0 }};
 
 	pawn p = pawn();
-	p.printBoard(d);
+	printBoard(d);
 	printf("\n\n");
 	int i = 0;
 	int player;
@@ -47,9 +47,8 @@ void interaction::runInteraction() {
 			printf("!!!PLAYER 2 TURN!!!\n");
 		}
 		int** possiblePiecesToMove = p.findPossiblePiecesToMove(d, player);
-		//printf(" size of possible %d\n", sizeof(possiblePiecesToMove)/2);
 		printf("Possible pieces to move are - \n");
-		printLocationArray(4, possiblePiecesToMove);
+		printLocationArray(possiblePiecesToMove[0][1]+1, possiblePiecesToMove);
 		printf("Enter the piece to move - ");
 		cin >> c >> e;
 		cout << "\n";
@@ -57,24 +56,48 @@ void interaction::runInteraction() {
 		int y1 = (c - '0') - 17;
 		int x1 = e - 1;
 		int** pM = p.possibleMoves(d, x1, y1, player);
-		printLocationArray(2, pM);
-		//printf("size of PM %d\n", sizeof(pM)/2);
+		printLocationArray(pM[0][1]+1, pM);
 		cout << "Enter position to move selected piece - ";
 		cin >> c >> e;
 		printf("\n");
 		int y2 = (c - '0') - 17;
 		int x2 = e - 1;
-		//cout << "selected pos is " << x2 << y2 << "\n";
 		p.move(d, x1, x2, y1, y2, player);
-		cout << "Hello\n";
-		p.printBoard(d);
+		printBoard(d);
 		i++;
 		printf("\n");
 	}
 
 }
 
+void interaction::printBoard(int d[][nCOLS]) {
 
+	printf("  +---+---+---+---+---+---+---+---+\n");
+
+	for (int r = 0; r < nROWS; r++) {
+		printf("%d |", r + 1);
+		for (int c = 0; c < nCOLS; c++) {
+			printf(" %c |", value2symbol(d[r][c]));
+		}
+		printf("\n");
+		printf("  +---+---+---+---+---+---+---+---+\n");
+	}
+
+	printf("    A   B   c   D   E   F   G   H\n");
+
+}
+
+char interaction::value2symbol(int i) {
+	switch (i) {
+	case 0:
+		return ' ';
+	case 1:
+		return 'R';
+	case 2:
+		return 'B';
+	}
+	return ('?');
+}
 
 void interaction::print2DArray(int rows, int cols, int** arr) {
 	for (int i = 0; i < rows; i++) {
@@ -86,7 +109,7 @@ void interaction::print2DArray(int rows, int cols, int** arr) {
 }
 
 void interaction::printLocationArray(int rows, int** arr) {
-	for (int i = 0; i < rows; i++) {
+	for (int i = 1; i < rows; i++) {
 		printf("%c%d\n", char('A' + arr[i][0]), arr[i][1]);
 	}
 	printf("\n");
