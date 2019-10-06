@@ -23,13 +23,8 @@ public:
 	pawn();
 	virtual ~pawn();
 	void move(int d[][nCOLS], int x1, int x2, int y1, int y2, int player);
-	//void printBoard(int d[][nCOLS]);
-	//char value2symbol(int i);
 	int** possibleMoves(int d[][nCOLS], int x, int y, int player);
 	int** findPossiblePiecesToMove(int d[][nCOLS], int player);
-	void print2DArray(int rows, int cols, int** arr);
-	void print1DArray(int rows, int* arr);
-	void printLocationArray(int rows, int** arr);
 };
 
 
