@@ -17,8 +17,13 @@
 
 class king{
 public:
+	#define nROWS 8
+	#define nCOLS 8
 	king();
 	virtual ~king();
+	void move(int d[][nCOLS], int x1, int x2, int y1, int y2, int player);
+	int** possibleMoves(int d[][nCOLS], int x, int y, int player);
+	int** findPossiblePiecesToMove(int d[][nCOLS], int player);
 
 };
 

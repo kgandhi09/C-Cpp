@@ -29,6 +29,12 @@ void pawn::move(int d[][nCOLS], int x1, int x2, int y1, int y2, int player){
 
 }
 
+king pawn::makeKing(int d[][nCOLS], int x1,int  y1){
+	king k = king();
+	d[x1][y1] = 3;
+	return k;
+}
+
 int** pawn::possibleMoves(int d[][nCOLS], int x, int y, int player){
 	int count = 1;
 	int count2 = 0;
@@ -112,6 +118,13 @@ int** pawn::possibleMoves(int d[][nCOLS], int x, int y, int player){
 									possibleMoves[count] = new int[2];
 									possibleMoves[count][0] = j+1;
 									possibleMoves[count][1] = i+2;
+									count++;
+									count2++;
+								}
+								if(d[i+1][j+1] == 2 && d[i+2][j+2] == 0){
+									possibleMoves[count] = new int[2];
+									possibleMoves[count][0] = j+2;
+									possibleMoves[count][1] = i+3;
 									count++;
 									count2++;
 								}
@@ -306,13 +319,6 @@ int** pawn::findPossiblePiecesToMove(int d[][nCOLS], int player){
 							}
 						}
 						if(j==6){
-							//							if((d[i+1][j+1] == 0)){
-							//								loc[count] = new int[2];
-							//								loc[count][0] = j;
-							//								loc[count][1] = i+1;
-							//								count++;
-							//								count2++;
-							//							}
 							if((d[i+1][j-1] == 0) || (d[i+1][j+1] == 0)){
 								loc[count] = new int[2];
 								loc[count][0] = j;
@@ -346,13 +352,6 @@ int** pawn::findPossiblePiecesToMove(int d[][nCOLS], int player){
 
 						}
 						if(j == 1){
-							//							if((d[i+1][j-1] == 0)){
-							//								loc[count] = new int[2];
-							//								loc[count][0] = j;
-							//								loc[count][1] = i+1;
-							//								count++;
-							//								count2++;
-							//							}
 							if((d[i+1][j+1] == 0) || (d[i+1][j-1] == 0)){
 								loc[count] = new int[2];
 								loc[count][0] = j;
@@ -410,13 +409,6 @@ int** pawn::findPossiblePiecesToMove(int d[][nCOLS], int player){
 							}
 						}
 						if(j==6){
-							//								if((d[i-1][j-1] == 0)){
-							//									loc[count] = new int[2];
-							//									loc[count][0] = j;
-							//									loc[count][1] = i+1;
-							//									count++;
-							//									count2++;
-							//								}
 							if((d[i-1][j+1] == 0)|| (d[i-1][j-1] == 0)){
 								loc[count] = new int[2];
 								loc[count][0] = j;
@@ -449,13 +441,6 @@ int** pawn::findPossiblePiecesToMove(int d[][nCOLS], int player){
 							}
 						}
 						if(j==1){
-							//								if((d[i-1][j+1] == 0)){
-							//									loc[count] = new int[2];
-							//									loc[count][0] = j;
-							//									loc[count][1] = i+1;
-							//									count++;
-							//									count2++;
-							//								}
 							if((d[i-1][j-1] == 0) || (d[i-1][j+1] == 0)){
 								loc[count] = new int[2];
 								loc[count][0] = j;
