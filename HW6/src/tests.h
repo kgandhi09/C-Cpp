@@ -9,9 +9,10 @@
 #define TESTS_H_
 
 
-#include "production.h"
 #include <stdbool.h>
 #include <iostream>
+
+#include "interaction.h"
 using namespace std;
 
 class tests {
@@ -19,7 +20,12 @@ public:
 	tests();
 	virtual ~tests();
 	bool runTests();
-	bool testPlaceShipOnBoard();
+	bool testPutShipOnGameBoard();
+	bool testManuallyPlaceShipOnBoard();
+	bool testCheckSunkShip();
+	bool testisValidLocation();
+	bool testIsWinner();
+	bool testCHeckShot();
 
 };
 

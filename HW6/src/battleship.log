@@ -1,0 +1,20 @@
+Player 1's turn.
+1, 2 is a miss!
+Player 2's turn.
+8, 3 is a miss!
+Player 1's turn.
+1, 5 is a miss!
+Player 2's turn.
+4, 1 is a miss!
++===================================================
+|                    PLAYER STATS                   
++---------------------------------------------------
+| PLAYER 1 : 0 hits                                
+|            2 misses                              
+|            2 total shots                         
+|            0.00% hit/miss ratio                 
+| PLAYER 2 : 0 hits                                
+|            2 misses                              
+|            2 total shots                         
+|            0.00% hit/miss ratio                 
++===================================================

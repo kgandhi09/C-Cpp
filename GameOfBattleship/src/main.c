@@ -76,7 +76,7 @@ int main (void)
 	 * Print welcome screen
 	 */
 	welcomeScreen ();
-	systemMessage ("                            Hit <ENTER> to continue!\n");
+	//systemMessage ("                            Hit <ENTER> to continue!\n");
 	system ("cls");
 
 	/**
@@ -146,7 +146,7 @@ int main (void)
 	 */
 	player = getRandomNumber (0, 1);
 	printf ("> Player %d has been randomly selected to go first.\n", player + 1);
-	systemMessage ("> Hit <ENTER> to continue!\n");
+	//systemMessage ("> Hit <ENTER> to continue!\n");
 	system ("cls");
 
 	/**
@@ -467,7 +467,7 @@ int main (void)
 			break;
 		}
 
-		systemMessage ("> Hit <ENTER> to continue!\n");
+		//systemMessage ("> Hit <ENTER> to continue!\n");
 
 		/* switches from player 1 to player 2 */
 		player = !player;

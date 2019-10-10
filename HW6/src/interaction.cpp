@@ -10,8 +10,16 @@
  |              the game of Battleship.
  ==============================================================================*/
 
-#include "battleship.h"
+#include "interaction.h"
+board b = board();
 
+interaction::interaction(){
+
+}
+
+interaction::~interaction(){
+
+}
 /**
  * Function name : welcomeScreen ()
  * Date Created  : 17 October 2012
@@ -19,7 +27,7 @@
  * Definition    : This function displays a welcome message along with the
  *                 Rules of Battleship.
  */
-void welcomeScreen (void) {
+void interaction::welcomeScreen (void) {
 	printf ("XXXXX   XXXX  XXXXXX XXXXXX XX     XXXXXX  XXXXX XX  XX XX XXXX\n");
 	printf ("XX  XX XX  XX   XX     XX   XX     XX     XX     XX  XX XX XX  XX\n");
 	printf ("XXXXX  XX  XX   XX     XX   XX     XXXX    XXXX  XXXXXX XX XXXX\n");
@@ -49,16 +57,16 @@ void welcomeScreen (void) {
  * Pre-condition : ROWS & COLS are defined as constant macros
  * Post-condition: Array initialize to (~) tilde representing water
  */
-void initializeGameBoard (Cell gameBoard[][COLS]) {
-	int i = 0, j = 0;
-
-	for (i = 0; i < ROWS; i++)
-		for (j = 0; j < COLS; j++) {
-			gameBoard[i][j].symbol          = WATER;
-			gameBoard[i][j].position.row    = i;
-			gameBoard[i][j].position.column = j;
-		}
-}
+//void initializeGameBoard (Cell gameBoard[][COLS]) {
+//	int i = 0, j = 0;
+//
+//	for (i = 0; i < ROWS; i++)
+//		for (j = 0; j < COLS; j++) {
+//			gameBoard[i][j].symbol          = WATER;
+//			gameBoard[i][j].position.row    = i;
+//			gameBoard[i][j].position.column = j;
+//		}
+//}
 
 /**
  * Function name : printGameBoard ()
@@ -70,30 +78,30 @@ void initializeGameBoard (Cell gameBoard[][COLS]) {
                    if Boolean enum type
  * Post-condition: Game board printed on console screen
  */
-void printGameBoard (Cell gameBoard [][COLS], Boolean showPegs) {
-	int i = 0, j = 0;
-
-	printf ("  0 1 2 3 4 5 6 7 8 9\n");
-
-	for (i = 0; i < ROWS; i++) {
-		printf ("%d ", i);
-
-		for (j = 0; j < COLS; j++) {
-			if (showPegs == TRUE)
-				printf ("%c ", gameBoard [i][j].symbol);
-			else {
-				switch (gameBoard [i][j].symbol) {
-					case HIT:   printf ("%c ", HIT);   break;
-					case MISS:  printf ("%c ", MISS);  break;
-					case WATER:
-					default:    printf ("%c ", WATER); break;
-				}
-			}
-		}
-
-		putchar ('\n');
-	}
-}
+//void printGameBoard (Cell gameBoard [][COLS], Boolean showPegs) {
+//	int i = 0, j = 0;
+//
+//	printf ("  0 1 2 3 4 5 6 7 8 9\n");
+//
+//	for (i = 0; i < ROWS; i++) {
+//		printf ("%d ", i);
+//
+//		for (j = 0; j < COLS; j++) {
+//			if (showPegs == TRUE)
+//				printf ("%c ", gameBoard [i][j].symbol);
+//			else {
+//				switch (gameBoard [i][j].symbol) {
+//					case HIT:   printf ("%c ", HIT);   break;
+//					case MISS:  printf ("%c ", MISS);  break;
+//					case WATER:
+//					default:    printf ("%c ", WATER); break;
+//				}
+//			}
+//		}
+//
+//		putchar ('\n');
+//	}
+//}
 
 /**
  * Function name : putShipOnGameBoard ()
@@ -104,7 +112,7 @@ void printGameBoard (Cell gameBoard [][COLS], Boolean showPegs) {
  * Pre-condition : n/a
  * Post-condition: Specific type of ship place on specificied target cell
  */
-void putShipOnGameBoard (Cell gameBoard[][COLS], WaterCraft ship,
+void interaction::putShipOnGameBoard (Cell gameBoard[][COLS], ship ship,
 	                     Coordinate position, int direction) {
 	int i = ship.length - 1;
 
@@ -126,7 +134,7 @@ void putShipOnGameBoard (Cell gameBoard[][COLS], WaterCraft ship,
  *                 if input is correctly inputted
  * Post-condition: Ships placed on game board
  */
-void manuallyPlaceShipsOnGameBoard (Cell gameBoard[][COLS], WaterCraft ship[]) {
+void interaction::manuallyPlaceShipsOnGameBoard (Cell gameBoard[][COLS], ship ship[]) {
 	char       stringPosition[11] = "";
 	int        i = 0, j = 0;
 
@@ -139,7 +147,7 @@ void manuallyPlaceShipsOnGameBoard (Cell gameBoard[][COLS], WaterCraft ship[]) {
 
 		while (TRUE) {
 			system ("cls");
-			printGameBoard (gameBoard, TRUE);
+			b.printGameBoard (gameBoard, TRUE);
 			printf ("> Please enter the %d cells to place the %s across (no spaces):\n", ship[i].length, ship[i].name);
 			printf ("> ");
 			scanf ("%s", stringPosition);
@@ -184,9 +192,9 @@ void manuallyPlaceShipsOnGameBoard (Cell gameBoard[][COLS], WaterCraft ship[]) {
  * Definition    : This function lets the computer randomly place ship on the
  *                 game board
  * Pre-condition : n/a
- * Post-condition: Ships placed on game board
+ * Post-condition: Ships placede on game board
  */
-void randomlyPlaceShipsOnGameBoard (Cell gameBoard[][COLS], WaterCraft ship[]) {
+void interaction::randomlyPlaceShipsOnGameBoard (Cell gameBoard[][COLS], ship ship[]) {
 	Coordinate position;
 	int direction = -1;
 	int i = 0;
@@ -212,28 +220,28 @@ void randomlyPlaceShipsOnGameBoard (Cell gameBoard[][COLS], WaterCraft ship[]) {
  * Pre-condition : n/a
  * Post-condition: Game board updated with proper symbol
  */
-void updateGameBoard (Cell gameBoard[][COLS], Coordinate target) {
-	switch (gameBoard[target.row][target.column].symbol) {
-		/* miss */
-		case WATER:
-			gameBoard[target.row][target.column].symbol = MISS;
-			break;
-
-		/* hit */
-		case CARRIER:
-		case BATTLESHIP:
-		case CRUISER:
-		case SUBMARINE:
-		case DESTROYER:
-			gameBoard[target.row][target.column].symbol = HIT;
-			break;
-
-		case HIT:
-		case MISS:
-		default:
-			break;
-	}
-}
+//void updateGameBoard (Cell gameBoard[][COLS], Coordinate target) {
+//	switch (gameBoard[target.row][target.column].symbol) {
+//		/* miss */
+//		case WATER:
+//			gameBoard[target.row][target.column].symbol = MISS;
+//			break;
+//
+//		/* hit */
+//		case CARRIER:
+//		case BATTLESHIP:
+//		case CRUISER:
+//		case SUBMARINE:
+//		case DESTROYER:
+//			gameBoard[target.row][target.column].symbol = HIT;
+//			break;
+//
+//		case HIT:
+//		case MISS:
+//		default:
+//			break;
+//	}
+//}
 
 /**
  * Function name : checkBoundsOfCardinal ()
@@ -245,7 +253,7 @@ void updateGameBoard (Cell gameBoard[][COLS], Coordinate target) {
  * Pre-condition : n/a
  * Post-condition: Updates the cardinals array
  */
-void checkBoundsOfCardinal (Boolean cardinals[], int bound, int direction) {
+void interaction::checkBoundsOfCardinal (Boolean cardinals[], int bound, int direction) {
 	switch (direction) {
 		case NORTH:
 			if (bound < 0)
@@ -305,7 +313,7 @@ void checkBoundsOfCardinal (Boolean cardinals[], int bound, int direction) {
  * Pre-condition : stream to output file was created
  * Post-condition: n/a
  */
-Boolean checkSunkShip (short sunkShip[][NUM_OF_SHIPS], short player, char shipSymbol, FILE *stream) {
+Boolean interaction::checkSunkShip (short sunkShip[][NUM_OF_SHIPS], short player, char shipSymbol, FILE *stream) {
 	Boolean sunked = FALSE;
 
 	switch (shipSymbol) {
@@ -377,7 +385,7 @@ Boolean checkSunkShip (short sunkShip[][NUM_OF_SHIPS], short player, char shipSy
  * Pre-condition : n/a
  * Post-condition: n/a
  */
-Boolean isValidLocation (Cell gameBoard[][COLS], Coordinate position,
+Boolean interaction::isValidLocation (Cell gameBoard[][COLS], Coordinate position,
 				         int direction, int length) {
 	int i = length - 1;
 	Boolean isValid = TRUE;
@@ -407,7 +415,7 @@ Boolean isValidLocation (Cell gameBoard[][COLS], Coordinate position,
  *                 does not check for inccorrect coordinates
  * Post-condition: n/a
  */
-Boolean convertStringtoPosition (Coordinate position[], char *stringPosition, int length) {
+Boolean interaction::convertStringtoPosition (Coordinate position[], char *stringPosition, int length) {
 	Boolean flag = TRUE;
 	char temp = '\0';
 	int i = 0, j = 0, k = 1;
@@ -443,7 +451,7 @@ Boolean convertStringtoPosition (Coordinate position[], char *stringPosition, in
  * Pre-condition : n/a
  * Post-condition: n/a
  */
-Boolean isWinner (Stats players[], int player) {
+Boolean interaction::isWinner (Stats players[], int player) {
 	Boolean isWin = FALSE;
 
 	if (players[player].numHits == 17)
@@ -462,7 +470,7 @@ Boolean isWinner (Stats players[], int player) {
  * Pre-condition : n/a
  * Post-condition: n/a
  */
-Coordinate generatePosition (int direction, int length) {
+Coordinate interaction::generatePosition (int direction, int length) {
 	Coordinate position;
 
 	if (direction == HORIZONTAL) {
@@ -485,7 +493,7 @@ Coordinate generatePosition (int direction, int length) {
  * Pre-condition : n/a
  * Post-condition: n/a
  */
-Coordinate getTarget (void) {
+Coordinate interaction::getTarget (void) {
 	Coordinate target;
 
 	fflush (stdin);
@@ -506,7 +514,7 @@ Coordinate getTarget (void) {
  * Pre-condition : n/a
  * Post-condition: n/a
  */
-short checkShot (Cell gameBoard[][COLS], Coordinate target) {
+short interaction::checkShot (Cell gameBoard[][COLS], Coordinate target) {
 	int hit = -2;
 
 	switch (gameBoard[target.row][target.column].symbol) {
@@ -543,7 +551,7 @@ short checkShot (Cell gameBoard[][COLS], Coordinate target) {
  * Pre-condition : n/a
  * Post-condition: n/a
  */
-int getRandomNumber (int lowest, int highest) {
+int interaction::getRandomNumber (int lowest, int highest) {
 	if (lowest == 0)
 		return rand () % ++highest;
 
