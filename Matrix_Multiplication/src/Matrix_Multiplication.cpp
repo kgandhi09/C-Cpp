@@ -20,10 +20,27 @@ void printArray(int** arr, int row, int col){
 	}
 }
 
-int matrixMultiplier(int** m1, int** m2){
-//	int** result;
-	int result_row = sizeof(m1)/sizeof(int);
-	return result_row;
+// Normal multiplication method with time complexity: O(n^3)
+int** matrixMultiplier1(int** m1, int** m2, int r1, int c1, int r2, int c2){
+
+	int** result;
+	result = new int *[r1];
+
+
+	for(int i = 0; i< r1; i++){
+		result[i] = new int[c2];
+	}
+
+	for(int i = 0; i < r1; i++){
+		for(int j = 0; j < c1; j++){
+			result[i][j] = 0;
+			for(int k = 0; k < c1; k++){
+				result[i][j] += m1[i][k]*m2[k][j];
+			}
+		}
+	}
+
+	return result;
 }
 
 int main(){
@@ -65,10 +82,13 @@ int main(){
 	printArray(m1, 3, 4);
 	cout << endl;
 
-	cout << "Your Matrix 21 is: " << endl;
+	cout << "Your Matrix 2 is: " << endl;
 	printArray(m2, 4, 3);
 
-	int m1_rowSize = matrixMultiplier(m1, m2);
-	cout << endl << m1_rowSize << endl;
+	int** m3 = matrixMultiplier1(m1, m2, 3, 4, 4, 3);
+	cout << endl;
+	cout << "Your resultant matrix is: " << endl;
+	printArray(m3, 3, 3);
+
 	return 0;
 }
