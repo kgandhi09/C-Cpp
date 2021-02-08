@@ -20,6 +20,9 @@ struct strassenSubMatrix
 
 };
 
+/*
+ * arr: v2d vector
+ */
 void printArray(vector<vector<int>> arr){
 	for(int i = 0; i < arr.size(); i++){
 		for(int j = 0; j < arr[0].size(); j++){
@@ -51,41 +54,28 @@ vector<vector<int>> naiveMatrixMultiplier1(vector<vector<int>> m1, vector<vector
 	return result;
 }
 
-vector<int> slice(vector<int> matrix, int m, int n)
-{
-    auto first = matrix.cbegin() + m;
-    auto last = matrix.cbegin() + n;
+vector<vector<int>> transpose(vector<vector<int>> matrix){
+	vector<vector<int>> result;
 
-    vector<int> vec(first, last);
-    return vec;
-}
+	int result_col = matrix.size();
+	int result_row = matrix[0].size();
 
-void split(vector<vector<int>> matrix){
-	strassenSubMatrix result;
-	int new_row = matrix.size()/2;
-	int new_col = matrix[0].size()/2;
-
-
-	vector<int> temp_m1;
-	for(int i = 0; i < new_row; i++){
-		temp_m1 = slice(matrix[i], 0, new_col);
-		result.m1.push_back(temp_m1);
+	for(int i = 0; i < result_row; i++){
+		vector<int> temp;
+		for(int j = 0; j < result_col; j++){
+			temp.push_back(0);
+		}
+		result.push_back(temp);
 	}
 
-	printArray(result.m1);
+	for(int i = 0; i < result.size(); i++){
+		for(int j = 0; j < result[0].size(); j++){
+			result[i][j] = matrix[j][i];
+		}
+	}
 
-
-//	for(int i = 0; i < new_row; i++){
-//		temp_m1.push_back();
-//	}
-
-
-//	return result;
+	return result;
 }
-
-//returnDataType strassesMatrixMultiplier(int** m1, int** m2, int r1, int c1, int r2, int c2){
-//
-//}
 
 
 int main(){
@@ -141,11 +131,15 @@ int main(){
 
 	cout << endl;
 	vector<vector<int>> m3 = naiveMatrixMultiplier1(m1, m2);
-	split(m1);
 
 	cout << endl;
 	cout << "Resultant matrix using naive method with time complexity O(n^3) is: " << endl;
 	printArray(m3);
+
+	cout << endl;
+	vector<vector<int>> transpose_m3 = transpose(m3);
+	cout << "Transpose of the resultant matrix is: " << endl;
+	printArray(transpose_m3);
 
 	return 0;
 }
